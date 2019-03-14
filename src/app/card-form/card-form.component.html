@@ -1,0 +1,105 @@
+<div class="form">
+  <div class="form-wrapper">
+
+    <div class="form-header">
+      <img src="../assets/img/logo-paymentwall.png" alt="">
+    </div>
+
+    <div class="form-main">
+      <form [formGroup]="creditCardForm"
+            (ngSubmit)="onSubmit()">
+
+        <div class="input-group">
+          <input type="text"
+                 id="cardNumber"
+                 formControlName="cardNumber"
+                 mask="0000 0000 0000 0000">
+          <label for="cardNumber"
+                 class="input-label"
+                 [class.active]="this._isStoreCard || creditCardForm.value.cardNumber">Credit card number</label>
+          <div class="input-error"
+               [class.active]="!creditCardForm.controls.cardNumber.untouched && !creditCardForm.controls.cardNumber.valid && !creditCardForm.controls.cardNumber.disabled">Invalid input</div>
+        </div>
+
+        <div class="input-group input-group__third">
+          <select id="expMonths"
+                  formControlName="expMonth">
+            <option disabled></option>
+            <option *ngFor="let item of this.expMonths" value="{{item}}">{{item}}</option>
+          </select>
+          <label for="expMonths" c
+                 lass="input-label"
+                 [class.active]="this._isStoreCard || creditCardForm.value.expMonth">Exp. Month</label>
+          <div class="input-error"
+               [class.active]="!creditCardForm.controls.expMonth.untouched && !creditCardForm.controls.expMonth.valid && !creditCardForm.controls.expMonth.disabled">Invalid input</div>
+        </div>
+
+        <div class="input-group input-group__third">
+          <select id="expYear"
+                  formControlName="expYear">
+            <option disabled></option>
+            <option *ngFor="let item of this.expYears" value="{{item}}">{{item}}</option>
+          </select>
+          <label for="expYear"
+                 class="input-label"
+                 [class.active]="this._isStoreCard || creditCardForm.value.expYear">Exp. Year</label>
+          <div class="input-error"
+               [class.active]="!creditCardForm.controls.expYear.untouched && !creditCardForm.controls.expYear.valid && !creditCardForm.controls.expYear.disabled">Invalid input</div>
+        </div>
+
+        <div class="input-group input-group__third input-group__cvv">
+          <input type="password"
+                 id="cvvCode"
+                 formControlName="cvvCode"
+                 mask="000">
+          <label for="cvvCode"
+                 class="input-label"
+                 [class.active]="creditCardForm.value.cvvCode">CVV</label>
+          <div class="input-error"
+               [class.active]="!creditCardForm.controls.cvvCode.untouched && !creditCardForm.controls.cvvCode.valid && !creditCardForm.controls.cvvCode.disabled">Invalid input</div>
+        </div>
+
+        <div class="input-group input-group__checkbox">
+          <mat-checkbox (change)="storeCard()">Store the card</mat-checkbox>
+        </div>
+
+        <div class="input-group" [hidden]="!_isStoreCard">
+          <input type="email"
+                 id="email"
+                 formControlName="email"
+                 disabled="disabled"
+                 placeholder="test@gmail.com"
+                 (input)="this.inputEmail($event.target.value)">
+          <label for="email"
+                 class="input-label"
+                 [class.active]="creditCardForm.value.email">Input your e-mail</label>
+          <div class="input-error"
+               [class.active]="!creditCardForm.controls.email.untouched && !creditCardForm.controls.email.valid && !creditCardForm.controls.expemailMonth.disabled">Invalid input</div>
+        </div>
+
+        <div class="input-group input-group__submit">
+          <button mat-stroked-button
+                  class="button"
+                  color="primary"
+                  type="submit"
+                  [disabled]="!creditCardForm.valid">
+            Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="form-footer">
+      <mat-progress-bar mode="determinate" value="{{this.progressCount}}"></mat-progress-bar>
+    </div>
+
+    <div class="form-spiner" [hidden]="!this.spinnerShow">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div class="form-success" [hidden]="!this.successShow">
+      <h3 class="message">
+        Payment successful
+      </h3>
+    </div>
+  </div>
+</div>
