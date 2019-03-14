@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {disableBindings} from "@angular/core/src/render3";
 
 @Component({
     selector: 'app-card-form',
